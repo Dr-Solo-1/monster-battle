@@ -3,79 +3,105 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>معركة الوحوش</title>
+  <title>أسطورة الغابة الملعونة</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      background: #1a1a2e;
-      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0d1b1e;
+      color: #e0f7e0;
       text-align: center;
-      padding: 20px;
+      padding: 15px;
+      line-height: 1.6;
     }
     .container {
       max-width: 600px;
       margin: 0 auto;
-      background: #16213e;
+      background: #132a2f;
       padding: 20px;
       border-radius: 15px;
-      box-shadow: 0 0 20px #0f3460;
+      box-shadow: 0 0 20px #0a3d30;
+      border: 1px solid #2a5c45;
     }
     h1 {
-      color: #e94560;
+      color: #6bdb87;
+      text-shadow: 0 0 10px #2a7d45;
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      color: #a8e6cf;
+      font-style: italic;
+      margin-bottom: 20px;
     }
     button {
-      background: #e94560;
+      background: #2a7d45;
       color: white;
       border: none;
-      padding: 10px 20px;
-      margin: 10px;
+      padding: 10px 16px;
+      margin: 8px 4px;
       border-radius: 8px;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 15px;
+      transition: background 0.3s;
     }
     button:hover {
-      background: #ff6b81;
+      background: #3cb371;
     }
     .stats {
       display: flex;
       justify-content: space-around;
-      background: #0f3460;
-      padding: 15px;
-      margin: 20px 0;
+      background: #0f262a;
+      padding: 14px;
+      margin: 18px 0;
       border-radius: 10px;
+      border: 1px solid #2a5c45;
     }
     .log {
-      background: #0c1c33;
-      height: 150px;
+      background: #091a1d;
+      height: 180px;
       overflow-y: auto;
-      padding: 10px;
+      padding: 12px;
       border-radius: 10px;
       margin: 20px 0;
       text-align: right;
+      border: 1px solid #2a5c45;
+      font-size: 15px;
+    }
+    .story {
+      color: #c1f0c1;
+      font-style: italic;
+      margin: 12px 0;
+      padding: 10px;
+      background: rgba(10, 40, 30, 0.3);
+      border-radius: 8px;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>⚔️ معركة الوحوش ⚔️</h1>
+    <h1>🌿 أسطورة الغابة الملعونة</h1>
+    <div class="subtitle">مغامرة نصية في قلب الغابة المظلمة...</div>
+
     <div id="startScreen">
-      <p>اختر بطلَك:</p>
-      <button onclick="startGame('محارب')">محارب (هجوم عالي)</button>
-      <button onclick="startGame('ساحر')">ساحر (صحة أعلى)</button>
-      <button onclick="startGame('رامٍ')">رامٍ (توازن)</button>
+      <p>اختر بطلَك من أبطال القبيلة:</p>
+      <button onclick="startGame('الفارس')">الفارس (هجوم عالي)</button>
+      <button onclick="startGame('الحكيم')">الحكيم (صحة أعلى)</button>
+      <button onclick="startGame('الصياد')">الصياد (توازن)</button>
     </div>
 
     <div id="gameScreen" style="display:none;">
       <div class="stats">
         <div>البطل: <span id="heroName">—</span></div>
+        <div>المستوى: <span id="level">1</span></div>
         <div>الصحة: <span id="heroHP">100</span></div>
         <div>الهجوم: <span id="heroAtk">15</span></div>
         <div>الذهب: <span id="gold">0</span> 💰</div>
       </div>
 
-      <div class="log" id="battleLog">ابدأ المعركة!</div>
+      <div class="story" id="storyText">الغابة هادئة... لكنك تشعر أن شيئًا يراقبك من بين الأشجار.</div>
 
-      <button onclick="fight()">⚔️ قاتل وحشًا</button>
+      <div class="log" id="battleLog">ابدأ مغامرتك في الغابة الملعونة...</div>
+
+      <button onclick="fight()">⚔️ استكشف الغابة</button>
       <button onclick="upgrade('hp')">❤️ +20 صحة (20 ذهب)</button>
       <button onclick="upgrade('atk')">💥 +5 هجوم (25 ذهب)</button>
       <button onclick="resetGame()">🔄 ابدأ من جديد</button>
@@ -83,70 +109,99 @@
   </div>
 
   <script>
-    // حالة اللعبة
-    let game = {
+    let game = JSON.parse(localStorage.getItem('forestGame')) || {
       hero: null,
       gold: 0,
+      wins: 0,
       log: []
     };
 
     const monsters = [
-      { name: "ذئب", hp: 30, atk: 8 },
-      { name: "غول", hp: 50, atk: 12 },
-      { name: "تنين صغير", hp: 80, atk: 18 },
-      { name: "شيطان", hp: 120, atk: 25 }
+      { name: "ذئب الضباب", hp: 30, atk: 8 },
+      { name: "شجرة الغول", hp: 50, atk: 12 },
+      { name: "العنكبوت السام", hp: 70, atk: 16 },
+      { name: "الشبح الأخضر", hp: 90, atk: 20 }
+    ];
+
+    const boss = { name: "حارس الغابة القديم", hp: 150, atk: 28 };
+
+    const stories = [
+      "تسمع صريرًا بين الأغصان... شيء يقترب!",
+      "وجدت أثر أقدام غريبة على التراب. تتبعها؟",
+      "ضباب كثيف يلف المكان. الرؤية شبه معدومة...",
+      "سمعت همسًا قديمًا: \"الكنز تحت جذور الشجرة العظيمة...\"",
+      "أشجار الغابة تتحرك ببطء... هل هي حية؟"
     ];
 
     function log(msg) {
       game.log.push(msg);
+      if (game.log.length > 20) game.log.shift();
       document.getElementById('battleLog').innerHTML = game.log.join('<br>');
       document.getElementById('battleLog').scrollTop = document.getElementById('battleLog').scrollHeight;
+      saveGame();
+    }
+
+    function updateStory() {
+      const randomStory = stories[Math.floor(Math.random() * stories.length)];
+      document.getElementById('storyText').textContent = randomStory;
+    }
+
+    function updateUI() {
+      if (!game.hero) return;
+      document.getElementById('heroName').textContent = game.hero.name;
+      document.getElementById('heroHP').textContent = game.hero.hp;
+      document.getElementById('heroAtk').textContent = game.hero.atk;
+      document.getElementById('gold').textContent = game.gold;
+      document.getElementById('level').textContent = Math.floor(game.wins / 3) + 1;
     }
 
     function startGame(heroType) {
       let hp = 100, atk = 15;
-      if (heroType === 'ساحر') { hp = 130; atk = 12; }
-      else if (heroType === 'رامٍ') { hp = 110; atk = 16; }
+      if (heroType === 'الحكيم') { hp = 130; atk = 12; }
+      else if (heroType === 'الصياد') { hp = 110; atk = 16; }
 
       game.hero = { name: heroType, maxHp: hp, hp: hp, atk: atk };
       game.gold = 0;
+      game.wins = 0;
       game.log = [];
-
-      document.getElementById('heroName').textContent = heroType;
+      log(`مرحبًا، أيها ${heroType}! دخلت الغابة الملعونة...`);
+      updateStory();
       updateUI();
+      
       document.getElementById('startScreen').style.display = 'none';
       document.getElementById('gameScreen').style.display = 'block';
-      log(`مرحبًا، أيها ${heroType}! استعد للمعركة!`);
-    }
-
-    function updateUI() {
-      document.getElementById('heroHP').textContent = game.hero.hp;
-      document.getElementById('heroAtk').textContent = game.hero.atk;
-      document.getElementById('gold').textContent = game.gold;
+      saveGame();
     }
 
     function fight() {
       if (!game.hero || game.hero.hp <= 0) {
-        log("أنت ميت! ابدأ من جديد.");
+        log("لقد سقطت في الغابة... ابدأ من جديد.");
         return;
       }
 
-      const monster = JSON.parse(JSON.stringify(monsters[Math.floor(Math.random() * monsters.length)]));
-      log(`ظهر وحش: ${monster.name}! (HP: ${monster.hp}, ATK: ${monster.atk})`);
+      let monster;
+      if (game.wins > 0 && game.wins % 3 === 0) {
+        monster = JSON.parse(JSON.stringify(boss));
+        log("⚠️ ظهر حارس الغابة القديم! استعد للمعركة الكبرى!");
+      } else {
+        monster = JSON.parse(JSON.stringify(monsters[Math.floor(Math.random() * monsters.length)]));
+        log(`ظهر ${monster.name} من بين الأشجار!`);
+      }
 
-      // قتال تلقائي حتى يموت واحد
       let turn = 0;
-      const fightInterval = setInterval(() => {
+      const interval = setInterval(() => {
         if (turn % 2 === 0) {
           // البطل يهاجم
           monster.hp -= game.hero.atk;
-          log(`أنت هاجمت ${monster.name} بـ ${game.hero.atk} ضرر!`);
+          log(`هاجمت ${monster.name} بـ ${game.hero.atk} ضرر!`);
           if (monster.hp <= 0) {
-            const reward = Math.floor(Math.random() * 15) + 15;
+            const reward = monster.name.includes("حارس") ? 50 : Math.floor(Math.random() * 15) + 15;
             game.gold += reward;
+            game.wins++;
             log(`هزَمت ${monster.name}! حصلت على ${reward} ذهب!`);
             updateUI();
-            clearInterval(fightInterval);
+            updateStory();
+            clearInterval(interval);
             return;
           }
         } else {
@@ -155,39 +210,52 @@
           log(`${monster.name} هاجمك بـ ${monster.atk} ضرر!`);
           if (game.hero.hp <= 0) {
             game.hero.hp = 0;
-            log("لقد متّ في المعركة! 💀");
+            log("لقد سقطت في الغابة... الظلام يلفك.");
             updateUI();
-            clearInterval(fightInterval);
+            clearInterval(interval);
             return;
           }
           updateUI();
         }
         turn++;
-      }, 800);
+      }, 900);
     }
 
     function upgrade(type) {
-      if (game.hero.hp <= 0) return;
+      if (!game.hero || game.hero.hp <= 0) return;
 
       if (type === 'hp' && game.gold >= 20) {
-        game.hero.maxHp += 20;
         game.hero.hp += 20;
         game.gold -= 20;
-        log("تمت ترقية صحتك!");
+        log("استخدمت عشبة شفاء! صحتك ارتفعت.");
       } else if (type === 'atk' && game.gold >= 25) {
         game.hero.atk += 5;
         game.gold -= 25;
-        log("تمت ترقية هجومك!");
+        log("حسّنت سلاحك! هجومك أصبح أقوى.");
       } else {
-        log("ليس لديك ذهب كافٍ!");
+        log("ليس لديك ذهب كافٍ لشراء هذا!");
       }
       updateUI();
+      saveGame();
+    }
+
+    function saveGame() {
+      localStorage.setItem('forestGame', JSON.stringify(game));
     }
 
     function resetGame() {
-      game = { hero: null, gold: 0, log: [] };
+      localStorage.removeItem('forestGame');
+      game = { hero: null, gold: 0, wins: 0, log: [] };
       document.getElementById('startScreen').style.display = 'block';
       document.getElementById('gameScreen').style.display = 'none';
+    }
+
+    // عند فتح الصفحة، لو في لعبة محفوظة، نعرضها
+    if (game.hero) {
+      document.getElementById('startScreen').style.display = 'none';
+      document.getElementById('gameScreen').style.display = 'block';
+      updateUI();
+      document.getElementById('battleLog').innerHTML = game.log.join('<br>');
     }
   </script>
 </body>
