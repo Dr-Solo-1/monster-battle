@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>معركة الوحوش</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: #1a1a2e;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #16213e;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #0f3460;
+    }
+    h1 {
+      color: #e94560;
+    }
+    button {
+      background: #e94560;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #ff6b81;
+    }
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      background: #0f3460;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 10px;
+    }
+    .log {
+      background: #0c1c33;
+      height: 150px;
+      overflow-y: auto;
+      padding: 10px;
+      border-radius: 10px;
+      margin: 20px 0;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>⚔️ معركة الوحوش ⚔️</h1>
+    <div id="startScreen">
+      <p>اختر بطلَك:</p>
+      <button onclick="startGame('محارب')">محارب (هجوم عالي)</button>
+      <button onclick="startGame('ساحر')">ساحر (صحة أعلى)</button>
+      <button onclick="startGame('رامٍ')">رامٍ (توازن)</button>
+    </div>
+
+    <div id="gameScreen" style="display:none;">
+      <div class="stats">
+        <div>البطل: <span id="heroName">—</span></div>
+        <div>الصحة: <span id="heroHP">100</span></div>
+        <div>الهجوم: <span id="heroAtk">15</span></div>
+        <div>الذهب: <span id="gold">0</span> 💰</div>
+      </div>
+
+      <div class="log" id="battleLog">ابدأ المعركة!</div>
+
+      <button onclick="fight()">⚔️ قاتل وحشًا</button>
+      <button onclick="upgrade('hp')">❤️ +20 صحة (20 ذهب)</button>
+      <button onclick="upgrade('atk')">💥 +5 هجوم (25 ذهب)</button>
+      <button onclick="resetGame()">🔄 ابدأ من جديد</button>
+    </div>
+  </div>
+
+  <script>
+    // حالة اللعبة
+    let game = {
+      hero: null,
+      gold: 0,
+      log: []
+    };
+
+    const monsters = [
+      { name: "ذئب", hp: 30, atk: 8 },
+      { name: "غول", hp: 50, atk: 12 },
+      { name: "تنين صغير", hp: 80, atk: 18 },
+      { name: "شيطان", hp: 120, atk: 25 }
+    ];
+
+    function log(msg) {
+      game.log.push(msg);
+      document.getElementById('battleLog').innerHTML = game.log.join('<br>');
+      document.getElementById('battleLog').scrollTop = document.getElementById('battleLog').scrollHeight;
+    }
+
+    function startGame(heroType) {
+      let hp = 100, atk = 15;
+      if (heroType === 'ساحر') { hp = 130; atk = 12; }
+      else if (heroType === 'رامٍ') { hp = 110; atk = 16; }
+
+      game.hero = { name: heroType, maxHp: hp, hp: hp, atk: atk };
+      game.gold = 0;
+      game.log = [];
+
+      document.getElementById('heroName').textContent = heroType;
+      updateUI();
+      document.getElementById('startScreen').style.display = 'none';
+      document.getElementById('gameScreen').style.display = 'block';
+      log(`مرحبًا، أيها ${heroType}! استعد للمعركة!`);
+    }
+
+    function updateUI() {
+      document.getElementById('heroHP').textContent = game.hero.hp;
+      document.getElementById('heroAtk').textContent = game.hero.atk;
+      document.getElementById('gold').textContent = game.gold;
+    }
+
+    function fight() {
+      if (!game.hero || game.hero.hp <= 0) {
+        log("أنت ميت! ابدأ من جديد.");
+        return;
+      }
+
+      const monster = JSON.parse(JSON.stringify(monsters[Math.floor(Math.random() * monsters.length)]));
+      log(`ظهر وحش: ${monster.name}! (HP: ${monster.hp}, ATK: ${monster.atk})`);
+
+      // قتال تلقائي حتى يموت واحد
+      let turn = 0;
+      const fightInterval = setInterval(() => {
+        if (turn % 2 === 0) {
+          // البطل يهاجم
+          monster.hp -= game.hero.atk;
+          log(`أنت هاجمت ${monster.name} بـ ${game.hero.atk} ضرر!`);
+          if (monster.hp <= 0) {
+            const reward = Math.floor(Math.random() * 15) + 15;
+            game.gold += reward;
+            log(`هزَمت ${monster.name}! حصلت على ${reward} ذهب!`);
+            updateUI();
+            clearInterval(fightInterval);
+            return;
+          }
+        } else {
+          // الوحش يهاجم
+          game.hero.hp -= monster.atk;
+          log(`${monster.name} هاجمك بـ ${monster.atk} ضرر!`);
+          if (game.hero.hp <= 0) {
+            game.hero.hp = 0;
+            log("لقد متّ في المعركة! 💀");
+            updateUI();
+            clearInterval(fightInterval);
+            return;
+          }
+          updateUI();
+        }
+        turn++;
+      }, 800);
+    }
+
+    function upgrade(type) {
+      if (game.hero.hp <= 0) return;
+
+      if (type === 'hp' && game.gold >= 20) {
+        game.hero.maxHp += 20;
+        game.hero.hp += 20;
+        game.gold -= 20;
+        log("تمت ترقية صحتك!");
+      } else if (type === 'atk' && game.gold >= 25) {
+        game.hero.atk += 5;
+        game.gold -= 25;
+        log("تمت ترقية هجومك!");
+      } else {
+        log("ليس لديك ذهب كافٍ!");
+      }
+      updateUI();
+    }
+
+    function resetGame() {
+      game = { hero: null, gold: 0, log: [] };
+      document.getElementById('startScreen').style.display = 'block';
+      document.getElementById('gameScreen').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
