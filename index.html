@@ -4,260 +4,248 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ممالك الظلال</title>
-  <!-- خط عربي جميل -->
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Tajawal', 'Segoe UI', Tahoma, sans-serif;
-      background: linear-gradient(135deg, #0c1a25, #1a2a3a);
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: #0d1b2a;
       color: #e0f7fa;
       text-align: center;
-      padding: 15px;
-      line-height: 1.6;
+      padding: 10px;
       margin: 0;
+      font-size: 18px;
     }
     .container {
-      max-width: 600px;
+      max-width: 100%;
       margin: 0 auto;
-      background: rgba(13, 27, 37, 0.85);
-      padding: 20px;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      border: 1px solid #2a5d6b;
-      backdrop-filter: blur(5px);
+      background: #152a3c;
+      padding: 15px;
+      border-radius: 15px;
+      border: 2px solid #2a6b8a;
     }
     h1 {
       color: #ffd700;
-      text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-      margin: 10px 0;
       font-size: 28px;
-    }
-    .subtitle {
-      color: #a8e6cf;
-      font-style: italic;
-      margin-bottom: 20px;
-      font-size: 16px;
+      margin: 10px 0;
     }
     button {
-      background: linear-gradient(to bottom, #2a7d45, #1e5d32);
+      background: #2a7d45;
       color: white;
       border: none;
-      padding: 10px 16px;
-      margin: 6px 4px;
+      padding: 14px 20px;
+      margin: 8px 6px;
       border-radius: 12px;
       cursor: pointer;
-      font-size: 15px;
-      font-family: 'Tajawal', sans-serif;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      font-size: 18px;
+      width: 90%;
+      max-width: 300px;
     }
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 8px rgba(0,0,0,0.3);
-      background: linear-gradient(to bottom, #3cb371, #2a7d45);
+    .combat-btns {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
     }
-    .choice-btn {
-      background: linear-gradient(to bottom, #5d4a7a, #4a3a60);
-    }
-    .zone-btn {
-      background: linear-gradient(to bottom, #4a6b3f, #3a502f);
+    .combat-btns button {
+      width: 45%;
+      max-width: 140px;
     }
     .stats {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      background: rgba(10, 30, 40, 0.7);
-      padding: 14px;
+      background: #0f2535;
+      padding: 15px;
       margin: 15px 0;
-      border-radius: 15px;
-      border: 1px solid #2a5d6b;
-      gap: 8px;
-    }
-    .stat-item {
-      font-size: 14px;
+      border-radius: 12px;
+      font-size: 19px;
+      line-height: 1.8;
     }
     .log {
-      background: rgba(5, 20, 25, 0.7);
-      height: 170px;
+      background: #081a28;
+      height: 260px;
       overflow-y: auto;
-      padding: 12px;
-      border-radius: 15px;
+      padding: 15px;
+      border-radius: 12px;
       margin: 15px 0;
       text-align: right;
-      border: 1px solid #2a5d6b;
-      font-size: 15px;
-      direction: rtl;
+      border: 2px solid #2a6b8a;
+      font-size: 19px;
+      line-height: 1.7;
     }
     .story {
-      color: #c1f0c1;
-      font-style: italic;
-      margin: 12px 0;
-      padding: 12px;
-      background: rgba(20, 50, 40, 0.3);
+      background: #183545;
+      padding: 15px;
       border-radius: 12px;
-      min-height: 45px;
-      font-size: 16px;
+      margin: 15px 0;
+      font-size: 20px;
+      font-style: italic;
+      color: #a8e6cf;
     }
     .zone-title {
-      background: rgba(40, 80, 60, 0.4);
-      padding: 10px;
-      border-radius: 12px;
+      background: #1e4558;
+      padding: 12px;
+      border-radius: 10px;
       margin: 12px 0;
+      font-size: 22px;
       font-weight: bold;
       color: #88e688;
-      font-size: 18px;
     }
     .choices {
-      margin: 18px 0;
-      padding: 14px;
-      background: rgba(40, 30, 60, 0.3);
-      border-radius: 15px;
-      border: 1px solid #5d4a7a;
-    }
-    .reputation {
-      color: #ffd700;
-      font-weight: bold;
-    }
-    .achievements {
-      margin-top: 15px;
-      padding: 10px;
-      background: rgba(30, 30, 50, 0.4);
+      margin: 15px 0;
+      padding: 15px;
+      background: #253a50;
       border-radius: 12px;
-      font-size: 14px;
-    }
-    .achievement-item {
-      display: inline-block;
-      background: rgba(255, 215, 0, 0.1);
-      margin: 4px;
-      padding: 4px 8px;
-      border-radius: 8px;
-      color: #ffd700;
-    }
-    .ending-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 100;
-      color: white;
-      font-size: 24px;
-      text-align: center;
-      padding: 20px;
-      display: none;
-    }
-    .ending-screen h2 {
-      color: #ffd700;
-      margin-bottom: 20px;
-      font-size: 32px;
-    }
-    .ending-screen button {
-      margin-top: 20px;
-      font-size: 18px;
-      padding: 12px 24px;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>🏰 ممالك الظلال</h1>
-    <div class="subtitle">مغامرة عربية خيالية في قلب الأساطير...</div>
 
     <div id="startScreen">
-      <p>اختر بطلَك من أبطال القبيلة:</p>
+      <p>اختر بطلَك:</p>
       <button onclick="startGame('الفارس')">الفارس ⚔️</button>
       <button onclick="startGame('الحكيم')">الحكيم 📜</button>
       <button onclick="startGame('الصياد')">الصياد 🏹</button>
     </div>
 
     <div id="gameScreen" style="display:none;">
-      <div class="stats">
-        <div class="stat-item">البطل: <span id="heroName">—</span></div>
-        <div class="stat-item">المستوى: <span id="level">1</span></div>
-        <div class="stat-item">الصحة: <span id="heroHP">100</span>/<span id="maxHP">100</span> ❤️</div>
-        <div class="stat-item">الهجوم: <span id="heroAtk">15</span> 💥</div>
-        <div class="stat-item">الذهب: <span id="gold">0</span> 💰</div>
-        <div class="stat-item">السمعة: <span id="reputation" class="reputation">محايد</span> 🌟</div>
+      <div class="stats" id="statsBox">
+        البطل: <span id="heroName">—</span><br>
+        الصحة: <span id="heroHP">100</span> / <span id="maxHP">100</span><br>
+        الهجوم: <span id="heroAtk">15</span><br>
+        الذهب: <span id="gold">0</span> 💰<br>
+        الانتصارات: <span id="wins">0</span><br>
+        السمعة: <span id="reputation">محايد</span> 🌟
       </div>
 
       <div class="zone-title" id="zoneTitle">الغابة الملعونة</div>
 
-      <div class="story" id="storyText">الغابة هادئة... لكنك تشعر أن شيئًا يراقبك من بين الأشجار.</div>
+      <div class="story" id="storyText">ابدأ مغامرتك...</div>
 
-      <div class="log" id="battleLog">ابدأ مغامرتك في ممالك الظلال...</div>
+      <div class="log" id="battleLog">مرحبًا بك في ممالك الظلال!</div>
 
+      <!-- أزرار التنقل -->
       <div style="margin: 15px 0;">
-        <button class="zone-btn" onclick="changeZone('الغابة')">🌲 الغابة</button>
-        <button class="zone-btn" onclick="changeZone('الواحة')">🌴 الواحة</button>
-        <button class="zone-btn" onclick="changeZone('الجبال')">⛰️ الجبال</button>
+        <button onclick="changeZone('الغابة')">🌲 الغابة</button>
+        <button onclick="changeZone('الواحة')">🌴 الواحة</button>
+        <button onclick="changeZone('الجبال')">⛰️ الجبال</button>
       </div>
 
       <button onclick="explore()">⚔️ استكشف</button>
       <button onclick="upgrade('hp')">❤️ +20 صحة (20 ذهب)</button>
       <button onclick="upgrade('atk')">💥 +5 هجوم (25 ذهب)</button>
-      <button onclick="showAchievements()">🏆 إنجازاتي</button>
       <button onclick="resetGame()">🔄 ابدأ من جديد</button>
 
       <div id="choicesSection" class="choices" style="display:none;"></div>
     </div>
   </div>
 
-  <div id="endingScreen" class="ending-screen">
-    <h2 id="endingTitle">نهاية المغامرة</h2>
-    <p id="endingMessage">شكرًا لك على لعبك!</p>
-    <button onclick="resetFromEnding()">ابدأ مغامرة جديدة</button>
-  </div>
-
   <script>
-    let game = JSON.parse(localStorage.getItem('shadowKingdoms')) || {
+    // =============== الحالة الأساسية ===============
+    let game = JSON.parse(localStorage.getItem('shadowGame')) || {
       hero: null,
       gold: 0,
       wins: 0,
       currentZone: "الغابة",
-      reputation: 0,
-      achievements: [],
-      log: []
+      reputation: 0
     };
 
-    // نظام الإنجازات
-    const allAchievements = {
-      forestMaster: { name: "فاتح الغابة", desc: "فز بـ 3 معارك في الغابة", unlocked: false },
-      oasisFriend: { name: "صديق الواحة", desc: "اشترِ سحرًا من التاجر", unlocked: false },
-      braveSoul: { name: "روح شجاعة", desc: "سمعتك شجاع", unlocked: false },
-      treasureHunter: { name: "صياد الكنوز", desc: "اجمع 150 ذهب", unlocked: false }
+    // =============== الشخصيات الجانبية ===============
+    const npcs = {
+      "الغابة": [
+        {
+          name: "العجوز الحكيم",
+          dialogue: "السلام عليك... هل تبحث عن الحقيقة أم عن القوة؟",
+          choices: [
+            { text: "الحقيقة", effect: () => { game.reputation += 2; log("العجوز: 'الحكمة درعك.'"); } },
+            { text: "القوة", effect: () => { game.hero.atk += 3; log("العجوز: 'القوة سيف ذو حدين.'"); } }
+          ]
+        },
+        {
+          name: "اللص الجريح",
+          dialogue: "ساعدني... وسأخبرك بسر كنز!",
+          choices: [
+            { text: "أساعده", effect: () => { game.gold += 30; log("اللص: 'الكنز في كهف الجبال!'"); } },
+            { text: "أتركه", effect: () => { game.reputation -= 2; log("اللص: 'ستندم على هذا!'"); } }
+          ]
+        }
+      ],
+      "الواحة": [
+        {
+          name: "التاجر الغامض",
+          dialogue: "لدي سحر نادر... لكنه لا يُباع بالذهب وحده.",
+          choices: [
+            { text: "أدفع 30 ذهب", effect: () => { 
+                if (game.gold >= 30) {
+                  game.gold -= 30;
+                  game.hero.maxHp += 25;
+                  game.hero.hp += 25;
+                  log("حصلت على سحر الحياة! (+25 صحة دائمة)");
+                } else log("ليس لديك ذهب كافٍ!");
+              } 
+            },
+            { text: "ما هذا السر؟", effect: () => { log("التاجر: 'السمعة تفتح الأبواب...'); } }
+          ]
+        }
+      ],
+      "الجبال": [
+        {
+          name: "الفارسة المجهولة",
+          dialogue: "أبحث عن من يواجه ملك الظلال معي. هل أنت جاهز؟",
+          choices: [
+            { text: "نعم", effect: () => { game.reputation += 3; log("الفارسة: 'سنتقابل في القلعة.'"); } },
+            { text: "ليس الآن", effect: () => { log("الفارسة: 'الخوف لا يبني الممالك.'"); } }
+          ]
+        }
+      ]
     };
 
-    function unlockAchievement(key) {
-      if (!game.achievements.includes(key) && allAchievements[key]) {
-        game.achievements.push(key);
-        log(`🏆 إنجاز جديد: ${allAchievements[key].name}!`);
-        saveGame();
-      }
-    }
+    // =============== أنواع الوحوش ===============
+    const monsterTypes = {
+      common: { name: "عادي", fleeChance: 0.4, fearThreshold: 0.3 },
+      rare: { name: "نادر", fleeChance: 0, fearThreshold: 0 }, // لا يهرب
+      boss: { name: "رئيس", fleeChance: 0, fearThreshold: 0 }
+    };
 
-    function showAchievements() {
-      let msg = "إنجازاتك:\n";
-      if (game.achievements.length === 0) {
-        msg += "لا توجد إنجازات بعد. استكشف أكثر!";
-      } else {
-        game.achievements.forEach(key => {
-          msg += `• ${allAchievements[key].name}: ${allAchievements[key].desc}\n`;
-        });
+    // =============== عالم اللعبة ===============
+    const zones = {
+      "الغابة": {
+        name: "الغابة الملعونة",
+        story: ["تسمع صريرًا بين الأغصان...", "وجدت أثر أقدام غريبة...", "ضباب كثيف يلف المكان..."],
+        monsters: [
+          { name: "ذئب الضباب", hp: 30, atk: 8, type: "common" },
+          { name: "شجرة الغول", hp: 50, atk: 12, type: "common" },
+          { name: "العنكبوت السام", hp: 70, atk: 16, type: "rare" }
+        ]
+      },
+      "الواحة": {
+        name: "الواحة المحرّمة",
+        story: ["نخيل عتيق يحيط بماء أزرق...", "سمعت صوت ناي بعيد...", "رمال ذهبية تلمع..."],
+        monsters: [
+          { name: "عفريت الرمال", hp: 40, atk: 10, type: "common" },
+          { name: "الحية الذهبية", hp: 60, atk: 14, type: "rare" },
+          { name: "شيطان الواحة", hp: 90, atk: 20, type: "rare" }
+        ]
+      },
+      "الجبال": {
+        name: "جبال الجن",
+        story: ["صخور شاهقة تهمس بأسرار...", "رأيت نورًا أزرق في كهف...", "الرياح تحمل همسات..."],
+        monsters: [
+          { name: "غول الجبال", hp: 55, atk: 13, type: "common" },
+          { name: "النسر الساحر", hp: 75, atk: 17, type: "rare" },
+          { name: "حارس الكهف", hp: 110, atk: 24, type: "boss" }
+        ]
       }
-      alert(msg);
-    }
+    };
 
-    function updateReputation(change) {
-      game.reputation += change;
-      if (game.reputation > 10) game.reputation = 10;
-      if (game.reputation < -10) game.reputation = -10;
-      if (game.reputation >= 7) unlockAchievement('braveSoul');
+    // =============== دوال مساعدة ===============
+    function log(msg) {
+      const logBox = document.getElementById('battleLog');
+      logBox.innerHTML += msg + '<br>';
+      logBox.scrollTop = logBox.scrollHeight;
       saveGame();
+    }
+
+    function saveGame() {
+      localStorage.setItem('shadowGame', JSON.stringify(game));
     }
 
     function getReputationText() {
@@ -268,206 +256,6 @@
       return "محايد";
     }
 
-    const zones = {
-      "الغابة": {
-        name: "الغابة الملعونة",
-        story: [
-          "تسمع صريرًا بين الأغصان... شيء يقترب! 🌲",
-          "وجدت أثر أقدام غريبة على التراب. 👣",
-          "ضباب كثيف يلف المكان. الرؤية شبه معدومة... 🌫️"
-        ],
-        monsters: [
-          { name: "ذئب الضباب", hp: 30, atk: 8 },
-          { name: "شجرة الغول", hp: 50, atk: 12 },
-          { name: "العنكبوت السام", hp: 70, atk: 16 }
-        ],
-        events: [
-          {
-            text: "سمعت بكاء طفل من بين الأشجار. ماذا تفعل؟",
-            choices: [
-              { 
-                text: "أتبع الصوت لأنقذه", 
-                effect: () => { 
-                  game.gold += 10; 
-                  updateReputation(2);
-                  log("أنقذت الطفل! (+10 ذهب، +سمعة شجاعة)");
-                } 
-              },
-              { 
-                text: "أتجاهل الصوت... قد يكون فخًا", 
-                effect: () => { 
-                  updateReputation(-1);
-                  log("تركت الصوت ورائك. (-سمعة)");
-                } 
-              }
-            ]
-          }
-        ],
-        npcs: [
-          {
-            name: "العجوز الحكيم",
-            dialogue: "السلام عليك... هل تبحث عن الحقيقة أم عن القوة؟ 📜",
-            choices: [
-              { text: "أبحث عن الحقيقة", effect: () => { updateReputation(1); log("العجوز: 'الحكمة معك يا بني.'"); } },
-              { text: "أبحث عن القوة", effect: () => { game.hero.atk += 2; log("العجوز: 'القوة ستأكلك يومًا.'"); } }
-            ]
-          }
-        ]
-      },
-      "الواحة": {
-        name: "الواحة المحرّمة",
-        story: [
-          "نخيل عتيق يحيط بماء أزرق لامع... لكن الحذر! 🌴",
-          "سمعت صوت ناي بعيد... من يعزف؟ 🎶",
-          "رمال ذهبية تلمع تحت الشمس. كنز أم فخ؟ 💎"
-        ],
-        monsters: [
-          { name: "عفريت الرمال", hp: 40, atk: 10 },
-          { name: "الحية الذهبية", hp: 60, atk: 14 },
-          { name: "شيطان الواحة", hp: 85, atk: 19 }
-        ],
-        events: [
-          {
-            text: "تاجر غامض يعرض عليك سحرًا نادرًا بـ 30 ذهب. هل تشريه؟",
-            choices: [
-              { 
-                text: "أشتريه", 
-                effect: () => { 
-                  if (game.gold >= 30) {
-                    game.gold -= 30;
-                    game.hero.hp = Math.min(game.hero.maxHp, game.hero.hp + 40);
-                    unlockAchievement('oasisFriend');
-                    log("السحر شفاه! (+40 صحة)");
-                  } else {
-                    log("ليس لديك ذهب كافٍ!");
-                  }
-                } 
-              },
-              { 
-                text: "أرفض", 
-                effect: () => { 
-                  updateReputation(1);
-                  log("رفضت الشراء. التاجر يحترم قرارك (+سمعة كرم).");
-                } 
-              }
-            ]
-          }
-        ],
-        npcs: [
-          {
-            name: "التاجر الغامض",
-            dialogue: "لديّ أسرار... لكنها لا تُباع بالذهب وحده. 💰",
-            choices: [
-              { text: "أعطيك 20 ذهب مقابل سر", effect: () => { 
-                  if (game.gold >= 20) {
-                    game.gold -= 20;
-                    game.wins += 1;
-                    log("التاجر: 'الملك يختبئ في الجبال...'");
-                  } else {
-                    log("ليس لديك ذهب كافٍ!");
-                  }
-                } 
-              },
-              { text: "لا أثق بك", effect: () => { log("ابتعد التاجر بنظرة غضب."); } }
-            ]
-          }
-        ]
-      },
-      "الجبال": {
-        name: "جبال الجن",
-        story: [
-          "صخور شاهقة تهمس بأسرار قديمة. هل تجرؤ؟ ⛰️",
-          "رأيت نورًا أزرق يلمع في كهف بعيد... 🔮",
-          "الرياح تحمل همسات بلغة لم تسمعها من قبل... 🌬️"
-        ],
-        monsters: [
-          { name: "غول الجبال", hp: 55, atk: 13 },
-          { name: "النسر الساحر", hp: 75, atk: 17 },
-          { name: "حارس الكهف", hp: 100, atk: 22 }
-        ],
-        events: [
-          {
-            text: "سمعت صرخة استغاثة من كهف مظلم. هل تدخل؟",
-            choices: [
-              { 
-                text: "أدخل لإنقاذ من بداخله", 
-                effect: () => { 
-                  game.wins += 1;
-                  updateReputation(2);
-                  log("أنقذت عجوزًا! (+1 انتصار، +سمعة شجاعة)");
-                } 
-              },
-              { 
-                text: "أنتظر خارج الكهف", 
-                effect: () => { 
-                  game.hero.hp -= 10;
-                  updateReputation(-2);
-                  log("انفجر الكهف! (-10 صحة، -سمعة جبن)");
-                } 
-              }
-            ]
-          }
-        ],
-        npcs: [
-          {
-            name: "الفارسة المجهولة",
-            dialogue: "أبحث عن من يساعدني ضد ملك الظلال... هل أنت جاهز؟ 🛡️",
-            choices: [
-              { text: "نعم، سأساعدك", effect: () => { 
-                  updateReputation(3);
-                  log("الفارسة: 'شكراً... سنتقابل في المعركة الأخيرة.'");
-                } 
-              },
-              { text: "ليس الآن", effect: () => { 
-                  updateReputation(-2);
-                  log("الفارسة: 'الخوف يقودك... وداعًا.'");
-                } 
-              }
-            ]
-          }
-        ]
-      }
-    };
-
-    const boss = { name: "ملك الظلال", hp: 200, atk: 30 };
-
-    function log(msg) {
-      game.log.push(msg);
-      if (game.log.length > 20) game.log.shift();
-      document.getElementById('battleLog').innerHTML = game.log.join('<br>');
-      document.getElementById('battleLog').scrollTop = document.getElementById('battleLog').scrollHeight;
-      saveGame();
-    }
-
-    function getRandomStory() {
-      const zoneData = zones[game.currentZone];
-      return zoneData.story[Math.floor(Math.random() * zoneData.story.length)];
-    }
-
-    function showChoices(choices, eventText) {
-      let choicesHTML = `<p>${eventText}</p>`;
-      choices.forEach((choice, i) => {
-        choicesHTML += `<button class="choice-btn" onclick="handleChoice(${i})">${choice.text}</button>`;
-      });
-      document.getElementById('choicesSection').innerHTML = choicesHTML;
-      document.getElementById('choicesSection').style.display = 'block';
-      window.currentChoices = choices;
-    }
-
-    function handleChoice(index) {
-      const choice = window.currentChoices[index];
-      choice.effect();
-      document.getElementById('choicesSection').style.display = 'none';
-      updateUI();
-    }
-
-    function meetNPC() {
-      const zoneData = zones[game.currentZone];
-      if (!zoneData.npcs || Math.random() > 0.4) return;
-      const npc = zoneData.npcs[Math.floor(Math.random() * zoneData.npcs.length)];
-      showChoices(npc.choices, `${npc.name} يقول: "${npc.dialogue}"`);
-    }
-
     function updateUI() {
       if (!game.hero) return;
       document.getElementById('heroName').textContent = game.hero.name;
@@ -475,14 +263,32 @@
       document.getElementById('maxHP').textContent = game.hero.maxHp;
       document.getElementById('heroAtk').textContent = game.hero.atk;
       document.getElementById('gold').textContent = game.gold;
-      document.getElementById('level').textContent = Math.floor(game.wins / 3) + 1;
+      document.getElementById('wins').textContent = game.wins;
       document.getElementById('reputation').textContent = getReputationText();
       
       const zoneData = zones[game.currentZone];
       document.getElementById('zoneTitle').textContent = zoneData.name;
-      document.getElementById('storyText').textContent = getRandomStory();
+      document.getElementById('storyText').textContent = 
+        zoneData.story[Math.floor(Math.random() * zoneData.story.length)];
     }
 
+    function showChoices(choices, text) {
+      let html = `<p>${text}</p>`;
+      choices.forEach((c, i) => {
+        html += `<button onclick="handleChoice(${i})">${c.text}</button>`;
+      });
+      document.getElementById('choicesSection').innerHTML = html;
+      document.getElementById('choicesSection').style.display = 'block';
+      window.currentChoices = choices;
+    }
+
+    function handleChoice(index) {
+      window.currentChoices[index].effect();
+      document.getElementById('choicesSection').style.display = 'none';
+      updateUI();
+    }
+
+    // =============== بدء اللعبة ===============
     function startGame(heroType) {
       let hp = 100, atk = 15;
       if (heroType === 'الحكيم') { hp = 130; atk = 12; }
@@ -492,83 +298,107 @@
       game.gold = 0;
       game.wins = 0;
       game.reputation = 0;
-      game.achievements = [];
-      game.currentZone = "الغابة";
-      game.log = [];
-      log(`مرحبًا، أيها ${heroType}! بدأت رحلتك في ممالك الظلال...`);
+      log(`مرحبًا، أيها ${heroType}!`);
       updateUI();
       
       document.getElementById('startScreen').style.display = 'none';
       document.getElementById('gameScreen').style.display = 'block';
-      saveGame();
     }
 
     function changeZone(zoneName) {
       if (!game.hero || game.hero.hp <= 0) return;
       game.currentZone = zoneName;
       log(`انتقلت إلى: ${zones[zoneName].name}`);
+      
+      // فرصة لقاء شخصية
+      if (npcs[zoneName] && Math.random() > 0.6) {
+        const npc = npcs[zoneName][Math.floor(Math.random() * npcs[zoneName].length)];
+        showChoices(npc.choices, `${npc.name} يقول: "${npc.dialogue}"`);
+      }
       updateUI();
-      document.getElementById('choicesSection').style.display = 'none';
     }
 
-    function explore() {
-      if (!game.hero || game.hero.hp <= 0) {
-        log("لقد سقطت... ابدأ من جديد.");
-        return;
-      }
-
-      if (Math.random() > 0.6) {
-        meetNPC();
-        return;
-      }
-
-      if (game.wins >= 10) {
-        endGame();
-        return;
-      }
-
-      let monster;
-      if (game.wins > 0 && game.wins % 5 === 0) {
-        monster = JSON.parse(JSON.stringify(boss));
-        log("⚠️ ظهر ملك الظلال! هذه معركتك المصيرية! 👑");
+    // =============== نظام الهروب ===============
+    function tryToFlee(monster) {
+      const type = monsterTypes[monster.type];
+      if (Math.random() < type.fleeChance) {
+        log("هربت من المعركة بنجاح!");
+        return true;
       } else {
-        const zoneData = zones[game.currentZone];
-        const monsters = zoneData.monsters;
-        monster = JSON.parse(JSON.stringify(monsters[Math.floor(Math.random() * monsters.length)]));
-        log(`ظهر ${monster.name}! ${monster.name.includes('ذئب') ? '🐺' : monster.name.includes('شجرة') ? '🌳' : '👹'}`);
+        log("فشلت في الهروب! الوحش يهاجمك...");
+        return false;
       }
+    }
 
+    // =============== المعركة ===============
+    function startBattle(monster) {
+      log(`ظهر ${monster.name}!`);
+
+      // زر المواجهة والهروب
+      const combatHTML = `
+        <div class="combat-btns">
+          <button onclick="fightMonster(${JSON.stringify(monster).replace(/"/g, '&quot;')})">⚔️ واجهه</button>
+          <button onclick="if(fleeFromBattle(${JSON.stringify(monster).replace(/"/g, '&quot;')})) endBattle();">🏃 هرب</button>
+        </div>
+      `;
+      document.getElementById('choicesSection').innerHTML = combatHTML;
+      document.getElementById('choicesSection').style.display = 'block';
+      window.currentMonster = monster;
+    }
+
+    function fleeFromBattle(monster) {
+      const escaped = tryToFlee(monster);
+      document.getElementById('choicesSection').style.display = 'none';
+      return escaped;
+    }
+
+    function fightMonster(monster) {
+      document.getElementById('choicesSection').style.display = 'none';
+      
       let turn = 0;
       const interval = setInterval(() => {
-        if (turn % 2 === 0) {
-          monster.hp -= game.hero.atk;
-          log(`هاجمت ${monster.name} بـ ${game.hero.atk} ضرر! 💥`);
-          if (monster.hp <= 0) {
-            game.hero.hp = Math.min(game.hero.maxHp, game.hero.hp + 30);
-            const reward = monster.name.includes("ملك") ? 100 : Math.floor(Math.random() * 20) + 20;
-            game.gold += reward;
+        // ذكاء الوحش: هل يهرب؟
+        if (turn > 0 && turn % 2 === 1) {
+          const type = monsterTypes[monster.type];
+          const healthRatio = monster.hp / (monster.hp + 1);
+          if (healthRatio < type.fearThreshold && Math.random() < 0.5) {
+            log(`${monster.name} يهرب من المعركة!`);
+            game.gold += 10;
+            log("حصلت على 10 ذهب من ممتلكاته!");
             game.wins++;
-            if (game.currentZone === "الغابة" && game.wins >= 3) unlockAchievement('forestMaster');
-            if (game.gold >= 150) unlockAchievement('treasureHunter');
-            log(`هزَمت ${monster.name}! (+30 صحة، +${reward} ذهب) 🎉`);
             updateUI();
             clearInterval(interval);
-            
-            setTimeout(() => {
-              const zoneData = zones[game.currentZone];
-              if (zoneData.events && Math.random() > 0.3) {
-                const event = zoneData.events[Math.floor(Math.random() * zoneData.events.length)];
-                showChoices(event.choices, event.text);
-              }
-            }, 1500);
+            return;
+          }
+        }
+
+        if (turn % 2 === 0) {
+          // البطل يهاجم
+          monster.hp -= game.hero.atk;
+          log(`هاجمت ${monster.name} بـ ${game.hero.atk} ضرر!`);
+          if (monster.hp <= 0) {
+            game.hero.hp = Math.min(game.hero.maxHp, game.hero.hp + 30);
+            const reward = monster.type === "rare" ? 35 : monster.type === "boss" ? 60 : 20;
+            game.gold += reward;
+            game.wins++;
+            log(`هزَمت ${monster.name}! (+30 صحة، +${reward} ذهب)`);
+            updateUI();
+            clearInterval(interval);
             return;
           }
         } else {
-          game.hero.hp -= monster.atk;
+          // الوحش يهاجم
+          let damage = monster.atk;
+          // ذكاء: لو البطل أقوى بكثير، الوحش يرتعب
+          if (game.hero.atk > monster.atk * 1.5) {
+            damage = Math.max(1, Math.floor(damage * 0.7));
+            log(`${monster.name} يرتجف من الخوف!`);
+          }
+          game.hero.hp -= damage;
           if (game.hero.hp < 0) game.hero.hp = 0;
-          log(`${monster.name} هاجمك بـ ${monster.atk} ضرر! 🩸`);
+          log(`${monster.name} هاجمك بـ ${damage} ضرر!`);
           if (game.hero.hp <= 0) {
-            log("لقد سقطت في ممالك الظلال... الظلام يلفك. 💀");
+            log("لقد متّ في المعركة!");
             updateUI();
             clearInterval(interval);
             return;
@@ -576,34 +406,20 @@
           updateUI();
         }
         turn++;
-      }, 800);
+      }, 1000);
     }
 
-    function endGame() {
-      let ending = "", title = "";
-      const rep = game.reputation;
-      if (rep >= 7) {
-        title = "🌟 النهاية البطولية";
-        ending = "أنقذت المملكة وصار اسمك أسطورة! سيروي الجدّات حكايتك للأحفاد.";
-      } else if (rep <= -7) {
-        title = "🌑 النهاية المظلمة";
-        ending = "تحالفت مع الظلال... وأصبحت أنت الملك الجديد. لكن هل السعادة في الظلام؟";
-      } else if (game.gold >= 200) {
-        title = "💰 النهاية الغنية";
-        ending = "جمعت ثروة هائلة وتركت المغامرات. عشت في قصر من ذهب... وحيدًا.";
-      } else {
-        title = "🕊️ النهاية الحكيمة";
-        ending = "فضّلت السلام وتركت السيف. عدت لقريتك تحكي الحكايات للأطفال.";
+    function explore() {
+      if (!game.hero || game.hero.hp <= 0) {
+        log("أنت ميت! ابدأ من جديد.");
+        return;
       }
-      
-      document.getElementById('endingTitle').textContent = title;
-      document.getElementById('endingMessage').textContent = ending;
-      document.getElementById('endingScreen').style.display = 'flex';
-    }
 
-    function resetFromEnding() {
-      document.getElementById('endingScreen').style.display = 'none';
-      resetGame();
+      const zoneData = zones[game.currentZone];
+      const monster = JSON.parse(JSON.stringify(
+        zoneData.monsters[Math.floor(Math.random() * zoneData.monsters.length)]
+      ));
+      startBattle(monster);
     }
 
     function upgrade(type) {
@@ -612,35 +428,29 @@
         game.hero.maxHp += 20;
         game.hero.hp += 20;
         game.gold -= 20;
-        log("استخدمت عشبة شفاء أبدية! (+20 صحة دائمة) 🌿");
+        log("اشتريت +20 صحة!");
       } else if (type === 'atk' && game.gold >= 25) {
         game.hero.atk += 5;
         game.gold -= 25;
-        log("حسّنت سلاحك! (+5 هجوم) ⚔️");
+        log("اشتريت +5 هجوم!");
       } else {
-        log("ليس لديك ذهب كافٍ! 💰");
+        log("ليس لديك ذهب كافٍ!");
       }
       updateUI();
-      saveGame();
-    }
-
-    function saveGame() {
-      localStorage.setItem('shadowKingdoms', JSON.stringify(game));
     }
 
     function resetGame() {
-      localStorage.removeItem('shadowKingdoms');
-      game = { hero: null, gold: 0, wins: 0, currentZone: "الغابة", reputation: 0, achievements: [], log: [] };
+      localStorage.removeItem('shadowGame');
+      game = { hero: null, gold: 0, wins: 0, currentZone: "الغابة", reputation: 0 };
+      document.getElementById('battleLog').innerHTML = "مرحبًا بك في ممالك الظلال!";
       document.getElementById('startScreen').style.display = 'block';
       document.getElementById('gameScreen').style.display = 'none';
-      document.getElementById('endingScreen').style.display = 'none';
     }
 
     if (game.hero) {
       document.getElementById('startScreen').style.display = 'none';
       document.getElementById('gameScreen').style.display = 'block';
       updateUI();
-      document.getElementById('battleLog').innerHTML = game.log.join('<br>');
     }
   </script>
 </body>
